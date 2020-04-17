@@ -1,0 +1,27 @@
+<h1>Posts</h1>
+<% @posts.each do |post| %>
+  <h3>
+    <p>
+      <%= current_user.name %> says: <%= post[:post][:post] %>
+    </p>
+  </h3>
+  <div style="background-color:#eeeeee">
+    <% post[:comments].each do |comment| %>
+      <p><b>&emsp;<%= comment[:user][:name] %> says: </b><%=
+        comment[:comment][:comment] %></p>
+      <div style="background-color:#bdbdbd">
+        <% comment[:comments].each do |cmmnt| %>
+          <p><b>&emsp;&emsp;<%=cmmnt.user.name %> says: </b><%=
+            cmmnt.comment %> </p>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <br>
+<% end %>
+
+<% if user_signed_in? %>
+  <li>
+    <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+  </li>
+<% end %>
